@@ -6,6 +6,7 @@ import { Server, LobbyRoom } from "colyseus";
 import socialRoutes from "@colyseus/social/express";
 
 import { DemoRoom } from "./rooms/DemoRoom";
+import JSRoom from "./rooms/JSRoom";
 import { FossilDeltaRoom } from "./rooms/FossilDeltaRoom";
 import { RoomWithoutState } from "./rooms/RoomWithoutState";
 
@@ -25,6 +26,7 @@ const gameServer = new Server({
 });
 
 // Register DemoRoom as "demo"
+gameServer.define("jsroom", JSRoom);
 gameServer.define("demo", DemoRoom);
 gameServer.define("lobby", LobbyRoom);
 gameServer.define("fossildelta", FossilDeltaRoom);

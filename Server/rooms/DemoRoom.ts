@@ -19,6 +19,7 @@ class Enemy extends Entity {
 }
 
 class State extends Schema {
+  @type("number") num: number = 0;
   @type({ map: Entity }) entities = new MapSchema<Entity>();
 }
 
@@ -30,7 +31,14 @@ class Message extends Schema {
   @type("string") str;
 }
 
-export class DemoRoom extends Room {
+//
+// interfaces named with "Message" are generated to C# via `schema-codegen`
+//
+interface TypeMessage {
+  hello: boolean;
+}
+
+export class DemoRoom extends Room<State> {
 
   onCreate (options: any) {
     console.log("DemoRoom created.", options);
@@ -58,9 +66,11 @@ export class DemoRoom extends Room {
     })
 
     this.onMessage("move_right", (client) => {
+      this.state.num++;
+      console.log("this.state.num =>", this.state.num);
       this.state.entities[client.sessionId].x += 0.01;
 
-      this.broadcast("hello", { hello: "hello world" });
+      this.broadcast("hello", { hello: false });
     });
 
     this.onMessage("*", (client, type, message) => {
