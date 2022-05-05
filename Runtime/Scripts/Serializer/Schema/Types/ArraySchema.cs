@@ -8,7 +8,7 @@ namespace Colyseus.Schema
 	///     A <see cref="Schema" /> array of <typeparamref name="T" /> type objects
 	/// </summary>
 	/// <typeparam name="T">The type of object in this array</typeparam>
-	public class ArraySchema<T> : ISchemaCollection
+	public class ArraySchema<T> : ISchemaCollection, IDisposable
 	{
 		/// <summary>
 		///     Map of dynamic indices for quick access of <see cref="items" />
@@ -331,9 +331,8 @@ namespace Colyseus.Schema
 			return value;
 		}
 
-		public override void Dispose()
+		public virtual void Dispose()
 		{
-			base.Dispose();
 			OnAdd = null;
 			OnChange = null;
 			OnRemove = null;
