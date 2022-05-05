@@ -9,7 +9,7 @@ namespace Colyseus.Schema
 	///     A <see cref="Schema" /> dictionary of <typeparamref name="T" /> type objects
 	/// </summary>
 	/// <typeparam name="T">The type of object in this map</typeparam>
-	public class MapSchema<T> : ISchemaCollection
+	public class MapSchema<T> : ISchemaCollection, IDisposable
 	{
 		protected Dictionary<int, string> Indexes = new Dictionary<int, string>();
 
@@ -420,9 +420,8 @@ namespace Colyseus.Schema
 			}
 		}
 
-		public override void Dispose()
+		public void Dispose()
 		{
-			base.Dispose();
 			OnAdd = null;
 			OnChange = null;
 			OnRemove = null;
