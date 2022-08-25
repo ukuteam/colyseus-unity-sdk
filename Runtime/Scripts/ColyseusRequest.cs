@@ -50,24 +50,24 @@ namespace Colyseus
                 req.downloadHandler = new DownloadHandlerBuffer();
                 await req.SendWebRequest();
 
-#if UNITY_2020_1_OR_NEWER
-                if (req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
-#else
-            if (req.isNetworkError || req.isHttpError)
-#endif
-                {
-                    if (_serverSettings.useSecureProtocol)
-                    {
-                         //We failed to make this call with a secure protocol, try with non-secure and if that works we'll stick with it
-                         _serverSettings.useSecureProtocol = false;
-                         LSLog.LogError($"Failed to make request to {req.url} with secure protocol, trying again without!");
-                         return await Request(uriMethod, uriPath, uriQuery, Token, data);
-                    }
-                    else
-                    {
-                        throw new Exception(req.error);
-                    }
-                }
+// #if UNITY_2020_1_OR_NEWER
+//                 if (req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
+// #else
+//             if (req.isNetworkError || req.isHttpError)
+// #endif
+//                 {
+//                     if (_serverSettings.useSecureProtocol)
+//                     {
+//                          //We failed to make this call with a secure protocol, try with non-secure and if that works we'll stick with it
+//                          _serverSettings.useSecureProtocol = false;
+//                          LSLog.LogError($"Failed to make request to {req.url} with secure protocol, trying again without!");
+//                          return await Request(uriMethod, uriPath, uriQuery, Token, data);
+//                     }
+//                     else
+//                     {
+//                         throw new Exception(req.error);
+//                     }
+//                 }
             
                 string json = req.downloadHandler.text;
             
@@ -110,24 +110,24 @@ namespace Colyseus
                 req.downloadHandler = new DownloadHandlerBuffer();
                 await req.SendWebRequest();
 
-#if UNITY_2020_1_OR_NEWER
-                if (req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
-#else
-                if (req.isNetworkError || req.isHttpError)
-#endif
-                {
-                    if (_serverSettings.useSecureProtocol)
-                    {
-                        //We failed to make this call with a secure protocol, try with non-secure and if that works we'll stick with it
-                        _serverSettings.useSecureProtocol = false;
-                        LSLog.LogError($"Failed to make request to {req.url} with secure protocol, trying again without!");
-                        return await Request(uriMethod, uriPath, options, headers);
-                    }
-                    else
-                    {
-                        throw new Exception(req.error);
-                    }
-                }
+// #if UNITY_2020_1_OR_NEWER
+//                 if (req.result == UnityWebRequest.Result.ConnectionError || req.result == UnityWebRequest.Result.ProtocolError)
+// #else
+//                 if (req.isNetworkError || req.isHttpError)
+// #endif
+//                 {
+//                     if (_serverSettings.useSecureProtocol)
+//                     {
+//                         //We failed to make this call with a secure protocol, try with non-secure and if that works we'll stick with it
+//                         _serverSettings.useSecureProtocol = false;
+//                         LSLog.LogError($"Failed to make request to {req.url} with secure protocol, trying again without!");
+//                         return await Request(uriMethod, uriPath, options, headers);
+//                     }
+//                     else
+//                     {
+//                         throw new Exception(req.error);
+//                     }
+//                 }
                 
                 return req.downloadHandler.text;
             };
